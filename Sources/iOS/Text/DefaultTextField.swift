@@ -39,7 +39,7 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
    - Parameter didChange text: An optional String.
    */
   @objc
-  optional func textField(textField: TextField, didChange text: String?)
+  optional func textField(textField: DefaultTextField, didChange text: String?)
   
   /**
    A delegation method that is executed when the textField will clear.
@@ -47,7 +47,7 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
    - Parameter willClear text: An optional String.
    */
   @objc
-  optional func textField(textField: TextField, willClear text: String?)
+  optional func textField(textField: DefaultTextField, willClear text: String?)
   
   /**
    A delegation method that is executed when the textField is cleared.
@@ -55,10 +55,10 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
    - Parameter didClear text: An optional String.
    */
   @objc
-  optional func textField(textField: TextField, didClear text: String?)
+  optional func textField(textField: DefaultTextField, didClear text: String?)
 }
 
-open class TextField: UITextField, Themeable {
+open class DefaultTextField: UITextField, Themeable {
   
   /// Minimum TextField text height.
   private let minimumTextHeight: CGFloat = 32
@@ -481,7 +481,7 @@ open class TextField: UITextField, Themeable {
   }
 }
 
-fileprivate extension TextField {
+fileprivate extension DefaultTextField {
   /// Prepares the divider.
   func prepareDivider() {
     dividerColor = dividerNormalColor
@@ -530,7 +530,7 @@ fileprivate extension TextField {
   }
 }
 
-fileprivate extension TextField {
+fileprivate extension DefaultTextField {
   /// Updates the leftView tint color.
   func updateLeftViewColor() {
     leftView?.tintColor = isEditing ? leftViewActiveColor : leftViewNormalColor
@@ -593,7 +593,7 @@ fileprivate extension TextField {
   }
 }
 
-fileprivate extension TextField {
+fileprivate extension DefaultTextField {
   /// Layout the placeholderLabel.
   func layoutPlaceholderLabel() {
     let leftPadding = leftViewWidth + textInsets.left
@@ -645,7 +645,7 @@ fileprivate extension TextField {
   }
 }
 
-internal extension TextField {
+internal extension DefaultTextField {
   /// Layout given label at the bottom with the vertical offset provided.
   func layoutBottomLabel(label: UILabel, verticalOffset: CGFloat) {
     let c = dividerContentEdgeInsets
@@ -656,7 +656,7 @@ internal extension TextField {
   }
 }
 
-fileprivate extension TextField {
+fileprivate extension DefaultTextField {
   /// Handles the text editing did begin state.
   @objc
   func handleEditingDidBegin() {
@@ -712,7 +712,7 @@ fileprivate extension TextField {
   }
 }
 
-private extension TextField {
+private extension DefaultTextField {
   /// The animation for leftView when editing begins.
   func leftViewEditingBeginAnimation() {
     updateLeftViewColor()
@@ -762,7 +762,7 @@ private extension TextField {
   }
 }
 
-private extension TextField {
+private extension DefaultTextField {
   /// Updates visibilityIconButton image based on isSecureTextEntry value.
   func updateVisibilityIcon() {
     visibilityIconButton?.image = isSecureTextEntry ? visibilityIconOff : visibilityIconOn

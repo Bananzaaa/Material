@@ -25,7 +25,7 @@
 
 import UIKit
 
-open class ErrorTextField: TextField {
+open class ErrorTextField: DefaultTextField {
   
   /// The errorLabel UILabel that is displayed.
   @IBInspectable

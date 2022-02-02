@@ -33,7 +33,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter willShowKeyboard value: A NSValue.
    */
   @objc
-  optional func textView(textView: TextView, willShowKeyboard value: NSValue)
+  optional func textView(textView: DefaultTextView, willShowKeyboard value: NSValue)
   
   /**
    A delegation method that is executed when the keyboard will close.
@@ -41,7 +41,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter willHideKeyboard value: A NSValue.
    */
   @objc
-  optional func textView(textView: TextView, willHideKeyboard value: NSValue)
+  optional func textView(textView: DefaultTextView, willHideKeyboard value: NSValue)
   
   /**
    A delegation method that is executed when the keyboard did open.
@@ -49,7 +49,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter didShowKeyboard value: A NSValue.
    */
   @objc
-  optional func textView(textView: TextView, didShowKeyboard value: NSValue)
+  optional func textView(textView: DefaultTextView, didShowKeyboard value: NSValue)
   
   /**
    A delegation method that is executed when the keyboard did close.
@@ -57,7 +57,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter didHideKeyboard value: A NSValue.
    */
   @objc
-  optional func textView(textView: TextView, didHideKeyboard value: NSValue)
+  optional func textView(textView: DefaultTextView, didHideKeyboard value: NSValue)
   
   /**
    A delegation method that is executed when text will be
@@ -68,7 +68,7 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter range: A NSRange.
    */
   @objc
-  optional func textView(textView: TextView, willProcessEditing textStorage: TextStorage, text: String, range: NSRange)
+  optional func textView(textView: DefaultTextView, willProcessEditing textStorage: TextStorage, text: String, range: NSRange)
   
   /**
    A delegation method that is executed when text has been
@@ -79,10 +79,10 @@ public protocol TextViewDelegate : UITextViewDelegate {
    - Parameter range: A NSRange.
    */
   @objc
-  optional func textView(textView: TextView, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
+  optional func textView(textView: DefaultTextView, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
 }
 
-open class TextView: UITextView, Themeable {
+open class DefaultTextView: UITextView, Themeable {
   /// A boolean indicating whether the text is empty.
   open var isEmpty: Bool {
     return 0 == text?.utf16.count
@@ -361,7 +361,7 @@ open class TextView: UITextView, Themeable {
   }
 }
 
-fileprivate extension TextView {
+fileprivate extension DefaultTextView {
   /// Prepares the Notification handlers.
   func prepareNotificationHandlers() {
     let defaultCenter = NotificationCenter.default
@@ -389,7 +389,7 @@ fileprivate extension TextView {
   }
 }
 
-fileprivate extension TextView {
+fileprivate extension DefaultTextView {
   /// Updates the placeholderLabel text color.
   func updatePlaceholderLabelColor() {
     guard isPlaceholderLabelEnabled else {
@@ -410,7 +410,7 @@ fileprivate extension TextView {
   }
 }
 
-fileprivate extension TextView {
+fileprivate extension DefaultTextView {
   /// Laysout the placeholder UILabel.
   func layoutPlaceholderLabel() {
     guard isPlaceholderLabelEnabled else {
@@ -429,7 +429,7 @@ fileprivate extension TextView {
   }
 }
 
-fileprivate extension TextView {
+fileprivate extension DefaultTextView {
   /**
    Handler for when the keyboard will open.
    - Parameter notification: A Notification.
@@ -522,7 +522,7 @@ fileprivate extension TextView {
   }
 }
 
-extension TextView: TextStorageDelegate {
+extension DefaultTextView: TextStorageDelegate {
   @objc
   open func textStorage(textStorage: TextStorage, willProcessEditing text: String, range: NSRange) {
     (delegate as? TextViewDelegate)?.textView?(textView: self, willProcessEditing: textStorage, text: string, range: range)
@@ -538,7 +538,7 @@ extension TextView: TextStorageDelegate {
   }
 }
 
-private extension TextView {
+private extension DefaultTextView {
   /// issue-838 and pr-1117
   ///
   /// Inserting (typing or pasting) an emoji character or placing cursor after some
